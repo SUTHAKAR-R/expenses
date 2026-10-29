@@ -1,10 +1,10 @@
 {
-  "name": "Construction Expenses",
+  "name": "Expenses",
   "short_name": "Expenses",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f3f4fb",
-  "theme_color": "#f3f4fb",
+  "background_color": "#121827",
+  "theme_color": "#121827",
   "icons": [
     { "src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ]

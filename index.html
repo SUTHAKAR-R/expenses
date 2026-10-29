@@ -8,17 +8,28 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Expenses">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f3f4fb">
+<meta name="theme-color" content="#121827">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
-  html, body { margin: 0; height: 100%; background: #f3f4fb; overflow: hidden; }
+  html, body { margin: 0; height: 100%; background: #121827; overflow: hidden; }
   /* The app lives inside this page, so the phone treats it as one full-screen app with our icon. */
   iframe { display: block; width: 100%; height: 100%; border: 0; }
 </style>
 </head>
 <body>
   <iframe src="https://script.google.com/macros/s/AKfycby2waHOD6wZGMAgEwYe4MriZZ3WduCWWmEjHJfiJHOw1JWA73DlgJhb3x8pzv8QaoIo/exec" title="Expenses"></iframe>
+  <script>
+    // Safari forgets storage inside the embedded app, so the app keeps its passcode here instead.
+    window.addEventListener('message', function (e) {
+      if (!/^https:\/\/[a-z0-9.-]+\.googleusercontent\.com$/i.test(e.origin) || !e.data) return;
+      if (e.data.type === 'expenses-hello') {
+        e.source.postMessage({ type: 'expenses-pass', pass: localStorage.getItem('pass') || '' }, e.origin);
+      } else if (e.data.type === 'expenses-save') {
+        e.data.pass ? localStorage.setItem('pass', e.data.pass) : localStorage.removeItem('pass');
+      }
+    });
+  </script>
 </body>
 </html>
